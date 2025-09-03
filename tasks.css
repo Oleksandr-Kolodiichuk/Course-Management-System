@@ -1,0 +1,271 @@
+.tasks {
+    display: grid;
+    grid-template-columns: 1fr 1fr 1fr;
+    grid-gap: 1em;
+    padding: 20px;
+    padding-top: 30px;
+    overflow-x: auto;
+}
+
+.taskContainer {
+    width: 27.5vw;
+    height: 78vh;
+    border: 2px solid black;
+    border-radius: 10px;
+    overflow-x: scroll;
+}
+
+/* Приховати прокрутку для Chrome, Safari та Opera */
+.taskContainer::-webkit-scrollbar {
+    display: none;
+}
+
+/* Приховати прокрутку для IE, Edge та Firefox */
+.taskContainer {
+    -ms-overflow-style: none; /* IE та Edge */
+    scrollbar-width: none; /* Firefox */
+}
+
+/* Приховати прокрутку для Chrome, Safari та Opera */
+.tasks::-webkit-scrollbar {
+    display: none;
+}
+
+/* Приховати прокрутку для IE, Edge та Firefox */
+.tasks {
+    -ms-overflow-style: none; /* IE та Edge */
+    scrollbar-width: none; /* Firefox */
+}
+
+.task{
+    border: 2px solid black;
+    height: 100px;
+    width: 85%;
+    border-radius: 12px;
+    margin-top: 1vw;
+    margin-bottom: 1vw;
+    margin-left: 7.4%;
+    display: grid;
+    align-items: center;
+    overflow-y: scroll;
+    grid-template-columns: auto auto;
+    background-color: gray;
+}
+/* Приховати прокрутку для Chrome, Safari та Opera */
+.task::-webkit-scrollbar {
+    display: none;
+}
+
+/* Приховати прокрутку для IE, Edge та Firefox */
+.task {
+    -ms-overflow-style: none; /* IE та Edge */
+    scrollbar-width: none; /* Firefox */
+}
+
+.task:hover{
+    background-color: #45a049;
+    cursor: pointer;
+    color:white;
+    transform: scale(1.1);
+}
+.task:active{
+    transform: scale(1.15);
+}
+
+
+.DivAddTask{
+    position: fixed;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    display: none;
+    flex-direction: column;
+    max-width: 90%;
+    width: 351px;
+    height: 90.5vh;
+    padding: 20px;
+    background-color: white;
+    border-radius: 10px;
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+    z-index: 9999;
+    overflow-x: scroll;
+}
+
+/* Приховати прокрутку для Chrome, Safari та Opera */
+.DivAddTask::-webkit-scrollbar {
+    display: none;
+}
+
+/* Приховати прокрутку для IE, Edge та Firefox */
+.DivAddTask {
+    -ms-overflow-style: none; /* IE та Edge */
+    scrollbar-width: none; /* Firefox */
+}
+
+.FormAddTask{
+    display: flex;
+    flex-direction: column;
+    width: 300px;
+    margin: auto;
+}
+
+label {
+    font-weight: bold;
+    margin-top: 10px;
+}
+  
+input[type="text"] {
+    margin-top: 5px;
+    padding: 10px;
+    border: 1px solid #ccc;
+    border-radius: 5px;
+}
+
+#descriptionAdd {
+    margin-top: 5px;
+    padding: 10px;
+    border: 1px solid #ccc;
+    border-radius: 5px;
+}
+
+#boardAdd {
+    margin-top: 5px;
+    padding: 10px;
+    border: 1px solid #ccc;
+    border-radius: 5px;
+}
+
+#descriptionView {
+    margin-top: 5px;
+    padding: 10px;
+    border: 1px solid #ccc;
+    border-radius: 5px;
+}
+
+#boardView {
+    margin-top: 5px;
+    padding: 10px;
+    border: 1px solid #ccc;
+    border-radius: 5px;
+}
+
+#dateView {
+    margin-top: 5px;
+    padding: 10px;
+    border: 1px solid #ccc;
+    border-radius: 5px;
+}
+
+#dateAdd {
+    margin-top: 5px;
+    padding: 10px;
+    border: 1px solid #ccc;
+    border-radius: 5px;
+}
+  
+button[type="submit"] {
+    margin-top: 10px;
+    padding: 10px;
+    border: none;
+    border-radius: 5px;
+    background-color: #4CAF50;
+    color: white;
+    cursor: pointer;
+}
+
+#CloseForm{
+    margin-top: 10px;
+    padding: 10px;
+    border: none;
+    border-radius: 5px;
+    background-color: lightcoral;
+    color: white;
+    cursor: pointer;
+    margin-top: 10px;
+}
+  
+button[type="submit"]:hover {
+    background-color: #45a049;
+}
+
+.TaskName{
+    font-size: 20px;
+    height: 100%;
+    display: flex;
+    align-items: center;
+}
+
+
+.TaskDate{
+    font-size: 20px;
+    height: 100%;
+    display: flex;
+    align-items: center;
+}
+
+.task > .TaskName,
+.task > .TaskDate {
+    border: 1px solid black; /* Рамка для елементів TaskName та TaskDate */
+}
+
+
+
+
+
+
+
+
+.DivViewTask{
+    position: fixed;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    display: none;
+    flex-direction: column;
+    max-width: 90%;
+    width: 351px;
+    height: 88.5vh;
+    padding: 20px;
+    background-color: white;
+    border-radius: 10px;
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+    z-index: 9999;
+    overflow-x: scroll;
+}
+
+/* Приховати прокрутку для Chrome, Safari та Opera */
+.DivViewTask::-webkit-scrollbar {
+    display: none;
+}
+
+/* Приховати прокрутку для IE, Edge та Firefox */
+.DivViewTask {
+    -ms-overflow-style: none; /* IE та Edge */
+    scrollbar-width: none; /* Firefox */
+}
+
+.FormViewTask{
+    display: flex;
+    flex-direction: column;
+    width: 300px;
+    margin: auto;
+}
+    
+#CloseFormView{
+    margin-top: 10px;
+    padding: 10px;
+    border: none;
+    border-radius: 5px;
+    background-color: lightcoral;
+    color: white;
+    cursor: pointer;
+    margin-top: 10px;
+}
+  
+button[type="submit"]:hover {
+    background-color: #45a049;
+}
+
+#DeleteTask{
+    background-color: darkred;
+}

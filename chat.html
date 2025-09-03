@@ -1,0 +1,119 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <title>IP_LAB5/6 Kolodiichuk Oleksandr</title>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="description" content="Lab 5 Kolodiichuk Oleksandr">
+    <meta name="keywords" content="lab, IP, message, VNS, university, student">
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-EVSTQN3/azprG1Anm3QDgpJLIm9Nao0Yz1ztcQTwFspd3yD65VohhpuuCOmLASjC" crossorigin="anonymous">
+    <link rel="icon" type="image/x-icon" href="images/icon.png">
+    <link rel="stylesheet" type="text/css" href="chat-styles.css">
+    <link rel="stylesheet" type="text/css" href="styles.css">
+    <link rel="stylesheet" type="text/css" href="notifications-styles.css">
+    <script defer src="http://localhost:3000/socket.io/socket.io.js"></script>
+    <script defer src="chat.js"></script>
+    <script src="http://localhost:3000/socket.io/socket.io.js"></script>
+    <script src="notifications.js"></script>
+</head>
+<body id="bodyChatPage" class="bg-secondary m-0">
+    <header id="Header" class="bg-dark w-100">
+        <div id="DivNameSurname" class="text-white float-end px-2 pt-2 pb-2">
+            <div style="cursor: pointer;" id="UserLoginInChat"></div>
+            <div id="DivNameSurname-dropdown" class="border position-fixed bg-dark min-w-150 shadow px-3 py-4 text-center custom-margin-right">
+              <a class="text-blue text-decoration-none" href="/IP_LAB5">Log Out</a>
+            </div>
+        </div>
+        <div class="fs-5 text-white text-start ps-2 pt-2 float-start">
+            CMS
+        </div>
+        <div id="DivAva" class="rounded-circle overflow-hidden float-end pt-1 pb-1">
+            <img style="border-radius: 100%; height:30px; width:30px;" src="images/ava.png" alt="Avatar">
+        </div>        
+        <div id="DivBell" class="float-end fs-5 pr-4 pt-1 pb-1">
+            <a class="notification">
+                <a class="bg-dark" style="display: inline-block; text-decoration: none; color: inherit; background-color: inherit; border: none; cursor: pointer;">&#128276;</a> 
+            </a>
+            <div id="DivBell-dropdown" class="notification-dropdown">
+                <!-- <h1 class="EmptyNow">Empty for now</h1> -->
+                <!-- <div class="notification-item">
+                    <img class="notification-avatar" src="images/ava.png" alt="Avatar">
+                    <div class="notification-content">
+                        <textarea readonly class="notification-text">Lorem ipsum dolor sit amet, consectetur adipisicing elit. Maxime facilis ea consectetur, aliquam sequi magnam itaque neque quisquam quaerat nobis, exercitationem nihil nostrum nesciunt animi, quibusdam quos sed tempore eius.</textarea>
+                        <div class="notification-triangle"></div>
+                        <p class="notification-username">Jack</p>
+                        <p class="notification-time">9:15pm</p>
+                        <p class="notification-room">room 1</p>
+                    </div>
+                </div>
+                <div class="notification-task-item">
+                    <div class="notification-task-content">
+                        <p class="notification-task-board">Board</p>
+                        <p class="notification-task-name">Name</p>
+                        <p class="notification-task-date">04.03.2005</p>
+                        <textarea readonly class="notification-task-description">Lorem ipsum dolor sit amet, consectetur adipisicing elit. Maxime facilis ea consectetur, aliquam sequi magnam itaque neque quisquam quaerat nobis, exercitationem nihil nostrum nesciunt animi, quibusdam quos sed tempore eius.</textarea>
+                    </div>
+                </div> -->
+            </div>
+        </div>
+    </header>
+    <nav style="float:left; margin-top: 3vh;">
+        <ul style="padding-top: 8px; list-style-type: none;">
+            <li style="margin-left: -15%;"><a class="references" href="#">Dashboard</a></li>
+            <li style="margin-left: -15%; padding-top: 50px;"><a class="references" href="students.html">Students</a></li>
+            <li style="margin-left: -15%; padding-top: 50px;"><a id="tasksLink" class="references" style="cursor: pointer;">Tasks</a></li>
+        </ul>
+    </nav>
+    <div style="margin-top: 3vh; height: 4vh;" class="row">
+        <div class="col-12">
+            <h2>Messages</h2>
+            <div class="wrapper" style="display: grid; grid-template-columns: 1fr 3fr; width: inherit; height: 81vh; grid-gap: 1em;">
+                <div class="scrollable-div" class="chat-rooms" style="overflow: auto; border: 2px solid black; width: 100%; height: 95%; margin-top: 5%;">
+                    <div style="display: flex; justify-content: center; align-items: center; height: 10vh;">
+                        <h5 style="font-weight: bold; font-size: 2vw;">Chat room</h5>
+                    </div>
+                    <div style="margin-bottom: 3vh;">
+                        <input id="RoomNameInput" style="background-color: lightgrey;" type="text" class="form-control" placeholder="Name of new chat room" aria-label="Name of new chat room" aria-describedby="button-addon2" autocomplete="off">
+                        <button id="AddChatRoom">+</button>
+                    </div>
+                </div>
+                <div class="selected-chat" style="overflow-y: auto; border: 2px solid black; width: 100%; height: 95%; margin-top: 1.7%;"> 
+                    <button onclick="leaveRoomButtonClick()" id="LeaveRoom" style="float: left; width: 50%; height: 8vh;">Leave Room</button>
+                    <button onclick="disconnectRoomButtonClick()" id="DisconnectRoom" style="width: 50%; height: 8vh;">Disconnect</button>
+                    <main style="height: 412.9px" class="chat-main">
+                        <div style="height: 333px;" class="chat-sidebar">
+                          <h3 style="color:black; text-align: center;"><i class="fas fa-comments"></i> <b>Room Name</b></h3>
+                          <h2 style="overflow-y: scroll; text-align: center; height: 40px;" id="room-name"></h2>
+                          <h3 style="color: black; text-align: center;"><i class="fas fa-users"></i> <b>Users</b></h3>
+                          <ul id="room-users"></ul>
+                        </div>
+                        <div style="height: 124.2%;" class="chat-messages"></div>
+                        <div class="chat-form-container">
+                            <form id="chat-form">
+                                <input
+                                id="msg"
+                                type="text"
+                                placeholder="Enter Message"
+                                required
+                                autocomplete="off"
+                                />
+                                <button class="btn"> Send</button>
+                            </form>
+                        </div>
+                    </main>               
+                </div>
+            </div>
+        </div>
+    </div>
+    <script>
+        document.addEventListener("DOMContentLoaded", function() {
+            getRoomsFromDB();
+            document.getElementById('LeaveRoom').style.display = 'none';
+            document.getElementById('DisconnectRoom').style.display = 'none';
+            document.querySelector('.chat-main').style.display = 'none';
+            document.querySelector('.selected-chat').style.background = 'gray';
+            //deleteUserFromAllRooms();
+        });
+    </script>
+</body>
+</html>

@@ -1,0 +1,181 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <title>IP_LAB5/6 Kolodiichuk Oleksandr</title>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="description" content="Lab 5 Kolodiichuk Oleksandr">
+    <meta name="keywords" content="lab, IP, message, VNS, university, student">
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-EVSTQN3/azprG1Anm3QDgpJLIm9Nao0Yz1ztcQTwFspd3yD65VohhpuuCOmLASjC" crossorigin="anonymous">
+    <link rel="icon" type="image/x-icon" href="images/icon.png">
+    <link rel="stylesheet" type="text/css" href="styles.css">
+    <link rel="stylesheet" type="text/css" href="tasks.css">
+    <link rel="stylesheet" type="text/css" href="notifications-styles.css">
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.7.1/jquery.min.js"></script>
+    <script src="https://cdn.socket.io/4.0.0/socket.io.min.js"></script>
+    <script src="tasks.js"></script>
+    <script src="notifications.js"></script>
+</head>
+<body id="bodyStudentsPage" class="bg-secondary m-0">
+    <header id="Header" class="bg-dark w-100">
+        <div id="DivNameSurname" class="text-white float-end px-2 pt-2 pb-2">
+            <div style="cursor: pointer;" id="UserLogin"></div>
+            <div id="DivNameSurname-dropdown" class="border position-fixed bg-dark min-w-150 shadow px-3 py-4 text-center custom-margin-right">
+              <a class="text-blue text-decoration-none" href="/IP_LAB5">Log Out</a>
+            </div>
+        </div>
+        <div class="fs-5 text-white text-start ps-2 pt-2 float-start">
+            CMS
+        </div>
+        <div id="DivAva" class="rounded-circle overflow-hidden float-end pt-1 pb-1">
+            <img style="border-radius: 100%; height:30px; width:30px;" src="images/ava.png" alt="Avatar">
+        </div>        
+        <div id="DivBell" class="float-end fs-5 pr-4 pt-1 pb-1">
+            <a class="notification">
+                <a href="#" id="chatLink" class="bg-dark" style="display: inline-block; text-decoration: none; color: inherit; background-color: inherit; border: none; cursor: pointer;">&#128276;</a>
+                <script>
+                    // Отримання логіну та паролю
+                    var login = window.sessionStorage.getItem('userLogin'); // Замініть 'your_login' на реальний логін
+                    var password = window.sessionStorage.getItem('userPassword'); // Замініть 'your_password' на реальний пароль
+                    // Функція для додавання параметрів до URL та переходу на сторінку chat.html
+                    function redirectToChatPage(event) {
+                        event.preventDefault(); // Заборонити перехід за замовчуванням
+                
+                        var url = 'chat.html';
+                        url += '?login=' + encodeURIComponent(login);
+                        url += '&password=' + encodeURIComponent(password);
+                        window.location.href = url;
+                    }
+                    // Додати обробник події на клік, який викличе функцію redirectToChatPage()
+                    document.getElementById('chatLink').addEventListener('click', redirectToChatPage);
+                </script>
+            </a>
+            <div id="DivBell-dropdown" class="notification-dropdown">
+                <!-- <h1 class="EmptyNow">Empty for now</h1> -->
+                <!-- <div class="notification-item">
+                    <img class="notification-avatar" src="images/ava.png" alt="Avatar">
+                    <div class="notification-content">
+                        <textarea readonly class="notification-text">Lorem ipsum dolor sit amet, consectetur adipisicing elit. Maxime facilis ea consectetur, aliquam sequi magnam itaque neque quisquam quaerat nobis, exercitationem nihil nostrum nesciunt animi, quibusdam quos sed tempore eius.</textarea>
+                        <div class="notification-triangle"></div>
+                        <p class="notification-username">Jack</p>
+                        <p class="notification-time">9:15pm</p>
+                        <p class="notification-room">room 1</p>
+                    </div>
+                </div>
+                <div class="notification-task-item">
+                    <div class="notification-task-content">
+                        <p class="notification-task-board">Board</p>
+                        <p class="notification-task-name">Name</p>
+                        <p class="notification-task-date">04.03.2005</p>
+                        <textarea readonly class="notification-task-description">Lorem ipsum dolor sit amet, consectetur adipisicing elit. Maxime facilis ea consectetur, aliquam sequi magnam itaque neque quisquam quaerat nobis, exercitationem nihil nostrum nesciunt animi, quibusdam quos sed tempore eius.</textarea>
+                    </div>
+                </div> -->
+            </div>
+        </div>
+    </header>
+    <nav style="float:left; margin-top: 3vh;">
+        <ul style="padding-top: 8px; list-style-type: none;">
+            <li style="margin-left: -15%;"><a class="references" href="#">Dashboard</a></li>
+            <li style="margin-left: -15%; padding-top: 50px;"><a class="references" href="students.html">Students</a></li>
+            <li style="margin-left: -15%; padding-top: 50px;"><a class="references" style="cursor: pointer;">Tasks</a></li>
+        </ul>
+    </nav>
+    <div style="margin-top: 3vh; height: 4vh;" class="row">
+        <div class="col-12">
+            <h2>Tasks</h2>
+        </div>
+    </div>
+    <div class="tasks">
+        <div id="ToDoContainer" class="taskContainer">
+            <h3 class="CategoryName" style="font-style: italic; padding-top:12px; text-align:center;">ToDo</h3>
+            <hr>
+            <div style="text-align: center; width: 100%; justify-content: center;">
+                <h6>Add task</h6>
+                <button class="AddButton btn btn-outline-primary" onclick="showAddTaskForm(this)">+</button>
+            </div>
+            <hr>
+            <!-- <div onclick="showTaskViewForm()" class="task">
+                <div class="TaskName">Name</div>
+                <div class="TaskDate">Date</div>
+            </div> -->
+        </div>
+        <div id="InProcessContainer" class="taskContainer">
+            <h3 class="CategoryName" style="font-style: italic; padding-top:12px; text-align:center;">In process</h3>
+            <hr>
+            <div style="text-align: center; width: 100%; justify-content: center;">
+                <h6>Add task</h6>
+                <button class="AddButton btn btn-outline-primary" onclick="showAddTaskForm(this)">+</button>
+            </div>
+            <hr>
+        </div>
+        <div id="DoneContainer" class="taskContainer">
+            <h3 class="CategoryName" style="font-style: italic; padding-top:12px; text-align:center;">Done</h3>
+            <hr>
+            <div style="text-align: center; width: 100%; justify-content: center;">
+                <h6>Add task</h6>
+                <button class="AddButton btn btn-outline-primary" onclick="showAddTaskForm(this)">+</button>
+            </div>
+            <hr>
+        </div>
+    </div>
+
+
+
+
+
+
+
+
+    <div class="DivAddTask">
+        <form class="FormAddTask">
+            <h3 style="text-align: center;">Add task</h3>
+            <label for="boardAdd">Board:</label>
+            <select id="boardAdd">
+                <option value="ToDo">ToDo</option>
+                <option value="InProcess">In process</option>
+                <option value="Done">Done</option>
+            </select>
+            <label for="nameAdd">Name:</label>
+            <input type="text" id="nameAdd" autocomplete="off">
+            <label for="dateAdd">Date:</label>
+            <input type="date" id="dateAdd" autocomplete="off">
+            <label for="descriptionAdd">Description:</label>
+            <textarea id="descriptionAdd"></textarea>
+            <button type="submit" onclick="addTask(); return false;">Add</button>
+            <button type="button" onclick="closeAddTaskForm()" id="CloseForm">Close</button>
+        </form>
+    </div>
+
+
+      
+
+
+
+    <div class="DivViewTask">
+        <form class="FormViewTask">
+            <h3 style="text-align: center;">View task</h3>
+            <label for="boardView">Board:</label>
+            <select id="boardView">
+                <option value="ToDo">ToDo</option>
+                <option value="In process">In process</option>
+                <option value="Done">Done</option>
+            </select>
+            <label for="nameView">Name:</label>
+            <input type="text" id="nameView" autocomplete="off" readonly style="background-color: #f0f0f0; color: #888; cursor: not-allowed;">
+            <label for="dateView">Date:</label>
+            <input type="date" id="dateView" autocomplete="off">
+            <label for="descriptionView">Description:</label>
+            <textarea id="descriptionView"></textarea>
+            <button type="submit" id="SaveTask" onclick="saveTask(); return false;">Save</button>
+            <button type="button" onclick="closeViewTaskForm()" id="CloseFormView">Cancel</button>
+            <button type="submit" id="DeleteTask" onclick="deleteTask(); return false;">Delete</button>
+        </form>
+    </div>
+    <script>
+        document.addEventListener("DOMContentLoaded", function() {
+            designUserLoginElement();
+            getTasksFromDB();
+        });
+    </script>
+</body>
+</html>

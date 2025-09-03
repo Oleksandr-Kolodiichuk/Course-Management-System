@@ -1,0 +1,415 @@
+#bodyStudentsPage{
+    font-family: Verdana, Geneva, Tahoma, sans-serif;
+}
+
+#bodyChatPage{
+    font-family: Verdana, Geneva, Tahoma, sans-serif;
+	background: var(--light-color);
+}
+
+#Header{
+    height: 34px;
+    overflow-x: auto;
+    overflow-y: auto;
+}
+
+#DivNameSurname{
+    font-family: Verdana, Geneva, Tahoma, sans-serif;
+}
+
+#DivNameSurname-dropdown {
+    display: none;
+    width: 150px;
+    right: 0%;
+    border-radius: 10px;
+}
+.custom-margin-right {
+    right: 0;
+}
+@media screen and (max-width: 1400px) {
+    .custom-margin-right {
+        right: 2%;
+    }
+}
+@media screen and (max-width: 800px) {
+    .custom-margin-right {
+        right: 4%;
+    }
+}
+@media screen and (max-width: 600px) {
+    .custom-margin-right {
+        right: 6%;
+    }
+}
+@media screen and (max-width: 400px) {
+    .custom-margin-right {
+        right: 8%;
+    }
+}
+@media screen and (max-width: 300px) {
+    .custom-margin-right {
+        left: 10%;
+        right: 10%;
+    }
+}
+
+#DivNameSurname:hover #DivNameSurname-dropdown{
+    display: block;
+}
+
+#DivAva{
+    padding-right: 0.1vw;
+}
+
+#DivBell{
+    padding-right: 2vw;
+}
+
+.notification {
+    position: relative;
+}
+
+.notification-hide::after {
+    display: none;
+}
+
+.notification::after {
+    content: "";
+    position: absolute;
+    top: 0;
+    right: 0;
+    width: 8px;
+    height: 8px;
+    background-color: red;
+    border-radius: 50%;
+    animation: pulse 1s infinite alternate;
+}
+
+@keyframes pulse{
+    0%{
+        transform: scale(1);
+    }
+    100%{
+        transform: scale(2.5);
+    }
+}
+
+@media screen and (max-width: 1168px) {
+    #DivBell-dropdown {
+        width: 35vw;
+        height: 20vw;
+        right: 0%;
+    }
+}
+@media screen and (max-width: 1040px) {
+    #DivBell-dropdown {
+        width: 45vw;
+        height: 23vw;
+        right: 0%;
+    }
+}
+@media screen and (max-width: 718px) {
+    #DivBell-dropdown {
+        width: 55vw;
+        height: 30vw;
+        right: 0%;
+    }
+}
+@media screen and (max-width: 718px) {
+    #DivBell-dropdown {
+        width: 65vw;
+        height: 30vw;
+        right: 0%;
+    }
+}
+@media screen and (max-width: 518px) {
+    #DivBell-dropdown {
+        width: 80vw;
+        height: 40vw;
+        right: 0%;
+    }
+}
+@media screen and (max-width: 418px) {
+    #DivBell-dropdown {
+        left: 5%;
+        width: 90vw;
+        height: 50vw;
+    }
+}
+
+.rectangle {
+    width: 50%;
+    height: 25%;
+    background-color: rgb(132, 78, 226);
+    border:none;
+    position: absolute;
+
+
+    /* transform: translate(-30%, -90%); */
+    z-index: 2;
+    border-radius: 20%;
+    padding: 0;
+}
+
+.triangle {
+    /* width: 0;
+    height: 0; */
+    border-top: 10px solid transparent;
+    border-right: 50px solid rgb(112, 112, 214);
+    border-bottom: 10px solid transparent;
+    position: absolute;
+
+    transform: translate(-50%, -50%);
+    z-index: 1;
+}
+
+.buttonsForSwitchingTable {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 17vh;
+    margin-left: 10%;
+}
+
+.buttonsForSwitchingTable button{
+    margin-right: 1%;
+}
+
+.btn-outline-primary {
+    color: #fff;
+    background-color: #000;
+    border-color: #000;
+    transition: transform 0.3s ease;
+    font-size: 1.5vw;
+}
+
+.btn-outline-primary:hover {
+    transform: scale(1.3);
+}
+
+.textareas{
+    width: 100%;
+    height: 100%;
+    resize: none;
+    overflow: auto;
+    background-color: rgb(145, 70, 195);
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1), 0 -4px 6px rgba(0, 0, 0, 0.1), -4px 0 6px rgba(0, 0, 0, 0.1), 4px 0 6px rgba(0, 0, 0, 0.1);
+    border-radius: 20%;
+}
+
+#tableId{
+    height: 60vh;
+    width: 96%;
+    border:2px solid black;
+    border-collapse: collapse;
+}
+
+#buttonAddStudent{
+    margin-bottom: 1.1%; 
+    margin-right: 4%; 
+    float:right;
+}
+
+.references {
+    font-weight: bold;
+    text-decoration: none;
+    color: black;
+    display: inline-block;
+    transition: transform 0.3s ease;
+    transform-origin: center;
+}
+
+.references:hover {
+    transform: rotate(360deg);
+}
+
+th, td{
+    border:2px solid black;
+    border-collapse: collapse;
+    text-align: center;
+}
+
+.Buttons{
+    width: 40px;
+    height: 40px;
+    font-size: 20px;
+    box-shadow: 5px 5px 5px rgba(0,0,0,0.5);
+}
+
+.Buttons:hover{
+    transform: scale(1.3);
+    transition: transform 0.3s ease;
+}
+
+.Buttons:active{
+    transform: scale(0.9);
+}
+
+#FormAddStudent{
+    width: auto;
+    max-height: 95vh;
+    overflow-y: auto;
+    background-color: lightgray;
+    border: 1px solid black;
+    border-radius: 5px;
+    padding: 0;
+    position: fixed;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+}
+
+.Checkboxes{
+    height: 50%;
+    width: 50%;
+}
+
+.MarginsInFormAddStudent{
+    margin-left: 15%;
+}
+
+#AddChatRoom{
+    border: 2px solid black; 
+    background-color:darkgoldenrod;
+    width: 100%;
+    height: 10vh;
+}
+
+#AddChatRoom:hover{
+    background-color: rgb(223, 211, 81);
+    color: black;
+    transform: scale(1.2);
+}
+
+#AddChatRoom:active {
+    transform: scale(1.5);
+}
+
+#JoinChatRoom{
+    width: 100%;
+    height: 5vh;
+    background-color: #45a049;
+}
+
+#JoinChatRoom:hover{
+    background-color: greenyellow;
+    color: black;
+    transform: scale(1.2);
+}
+
+#JoinChatRoom:active {
+    transform: scale(1.5);
+}
+
+#LeaveRoom{
+    width: 100%;
+    height: 5vh;
+    background-color: darkred;
+}
+
+#LeaveRoom:hover{
+    background-color: lightcoral;
+    color: black;
+}
+
+#LeaveRoom:active {
+    background-color: darkred;
+}
+
+.ChatRoom{
+    border: 2px solid black;
+    height: 80px;
+    text-align: center;
+}
+
+.scrollable-div {
+    width: 200px;
+    height: 200px;
+    overflow: auto;
+    scrollbar-width: none;
+    -ms-overflow-style: none;
+}
+
+.scrollable-div::-webkit-scrollbar { 
+    width: 0px;
+}
+
+/*Login div and form*/
+
+#LoginDiv {
+    position: fixed;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    max-width: 90%;
+    width: 400px;
+    padding: 20px;
+    background-color: white;
+    border-radius: 10px;
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+    z-index: 9999;
+}
+
+#LoginForm {
+    width: 100%;
+}
+
+#LoginForm h3 {
+    margin-bottom: 20px;
+}
+
+#LoginForm label {
+    display: block;
+    margin-bottom: 5px;
+}
+
+#LoginForm input[type="text"],
+#LoginForm input[type="password"] {
+    width: 100%;
+    padding: 10px;
+    border: 1px solid #ccc;
+    border-radius: 5px;
+    margin-bottom: 20px;
+}
+
+#LoginForm input[type="submit"] {
+    width: 100%;
+    padding: 10px;
+    border: none;
+    border-radius: 5px;
+    background-color: #4CAF50;
+    color: white;
+    cursor: pointer;
+    transition: background-color 0.3s ease;
+}
+
+#LoginForm input[type="submit"]:hover {
+    background-color: #45a049;
+}
+
+@media (max-width: 480px) {
+    #LoginDiv {
+        width: 90%;
+    }
+}
+
+::placeholder{
+    font-style: italic;
+}
+
+#DisconnectRoom{
+    width: 100%;
+    height: 5vh;
+    background-color: red;
+}
+#DisconnectRoom:hover{
+    background-color: lightcoral;
+    color: black;
+}
+#DisconnectRoom:active {
+    background-color: darkred;
+}

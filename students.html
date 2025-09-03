@@ -1,0 +1,242 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <title>IP_LAB5/6 Kolodiichuk Oleksandr</title>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="description" content="Lab 5 Kolodiichuk Oleksandr">
+    <meta name="keywords" content="lab, IP, message, VNS, university, student">
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-EVSTQN3/azprG1Anm3QDgpJLIm9Nao0Yz1ztcQTwFspd3yD65VohhpuuCOmLASjC" crossorigin="anonymous">
+    <link rel="icon" type="image/x-icon" href="images/icon.png">
+    <link rel="stylesheet" type="text/css" href="styles.css">
+    <link rel="stylesheet" type="text/css" href="notifications-styles.css">
+    <link rel="manifest" href="manifest.json">
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.7.1/jquery.min.js"></script>
+    <script src="scripts.js"></script>
+    <script src="http://localhost:3000/socket.io/socket.io.js"></script>
+    <script src="notifications.js"></script>
+    <script>
+        const registerServiceWorker = async () =>
+        {
+            if ("serviceWorker" in navigator) //чи підтримує браузер
+            {
+                try
+                {
+                    const registration = await navigator.serviceWorker.register("service-worker.js", {scope: "/"});
+                    if (registration.active !== null)
+                    {
+                        switch (registration.active.state)
+                        {
+                            case "installing":
+                                console.log("Service worker installing");
+                                break;
+                            case "installed":
+                                console.log("Service worker installed");
+                                break;
+                            case "activating":
+                                console.log("Service worker activating");
+                                break;
+                            case "activated":
+                                console.log("Service worker activated");
+                                break;
+                            default:
+                                console.log("Service worker state:", registration.active.state);
+                        }
+                    }
+                    else
+                    {
+                        console.log("Service worker is not active yet");
+                    }
+                }
+                catch (error)
+                {
+                    console.error(`Registration failed with ${error}`);
+                }
+            }
+        };
+        //registerServiceWorker();
+    </script>
+</head>
+<body id="bodyStudentsPage" class="bg-secondary m-0">
+    <header id="Header" class="bg-dark w-100">
+        <div id="DivNameSurname" class="text-white float-end px-2 pt-2 pb-2">
+            <div style="cursor: pointer;" id="UserLogin"></div>
+            <div id="DivNameSurname-dropdown" class="border position-fixed bg-dark min-w-150 shadow px-3 py-4 text-center custom-margin-right">
+              <a class="text-blue text-decoration-none" href="/IP_LAB5">Log Out</a>
+            </div>
+        </div>
+        <div class="fs-5 text-white text-start ps-2 pt-2 float-start">
+            CMS
+        </div>
+        <div id="DivAva" class="rounded-circle overflow-hidden float-end pt-1 pb-1">
+            <img style="border-radius: 100%; height:30px; width:30px;" src="images/ava.png" alt="Avatar">
+        </div>        
+        <div id="DivBell" class="float-end fs-5 pr-4 pt-1 pb-1">
+            <a class="notification">
+                <a href="#" id="chatLink" class="bg-dark" style="display: inline-block; text-decoration: none; color: inherit; background-color: inherit; border: none; cursor: pointer;">&#128276;</a>
+                <script>
+                    // Отримання логіну та паролю
+                    var login = window.sessionStorage.getItem('userLogin'); // Замініть 'your_login' на реальний логін
+                    var password = window.sessionStorage.getItem('userPassword'); // Замініть 'your_password' на реальний пароль
+                    // Функція для додавання параметрів до URL та переходу на сторінку chat.html
+                    function redirectToChatPage(event) {
+                        event.preventDefault(); // Заборонити перехід за замовчуванням
+                        var url = 'chat.html';
+                        url += '?login=' + encodeURIComponent(login);
+                        url += '&password=' + encodeURIComponent(password);
+                        window.location.href = url;
+                    }
+                    // Додати обробник події на клік, який викличе функцію redirectToChatPage()
+                    document.getElementById('chatLink').addEventListener('click', redirectToChatPage);
+                </script>
+            </a>
+            <div id="DivBell-dropdown" class="notification-dropdown">
+                <!-- <h1 class="EmptyNow">Empty for now</h1> -->
+                <!-- <div class="notification-item">
+                    <img class="notification-avatar" src="images/ava.png" alt="Avatar">
+                    <div class="notification-content">
+                        <textarea readonly class="notification-text">Lorem ipsum dolor sit amet, consectetur adipisicing elit. Maxime facilis ea consectetur, aliquam sequi magnam itaque neque quisquam quaerat nobis, exercitationem nihil nostrum nesciunt animi, quibusdam quos sed tempore eius.</textarea>
+                        <div class="notification-triangle"></div>
+                        <p class="notification-username">Jack</p>
+                        <p class="notification-time">9:15pm</p>
+                        <p class="notification-room">room 1</p>
+                    </div>
+                </div>
+                <div class="notification-task-item">
+                    <div class="notification-task-content">
+                        <p class="notification-task-board">Board</p>
+                        <p class="notification-task-name">Name</p>
+                        <p class="notification-task-date">04.03.2005</p>
+                        <textarea readonly class="notification-task-description">Lorem ipsum dolor sit amet, consectetur adipisicing elit. Maxime facilis ea consectetur, aliquam sequi magnam itaque neque quisquam quaerat nobis, exercitationem nihil nostrum nesciunt animi, quibusdam quos sed tempore eius.</textarea>
+                    </div>
+                </div> -->
+            </div>
+        </div>
+    </header>
+    <nav style="float:left; margin-top: 3vh;">
+        <ul style="padding-top: 8px; list-style-type: none;">
+            <li style="margin-left: -15%;"><a class="references" href="#">Dashboard</a></li>
+            <li style="margin-left: -15%; padding-top: 50px;"><a class="references" style="cursor: pointer;">Students</a></li>
+            <li style="margin-left: -15%; padding-top: 50px;"><a id="tasksLink" class="references" style="cursor: pointer;">Tasks</a></li>
+            <script>
+                // Отримання логіну та паролю
+                var login = window.sessionStorage.getItem('userLogin');
+                var password = window.sessionStorage.getItem('userPassword');
+                // Функція для додавання параметрів до URL та переходу на сторінку tasks.html
+                function redirectToTasksPage(event) {
+                    event.preventDefault(); // Заборонити перехід за замовчуванням
+                    var url = 'tasks.html';
+                    url += '?login=' + encodeURIComponent(login);
+                    url += '&password=' + encodeURIComponent(password);
+                    window.location.href = url;
+                }
+                // Додати обробник події на клік, який викличе функцію redirectToTasksPage()
+                document.getElementById('tasksLink').addEventListener('click', redirectToTasksPage);
+            </script>
+        </ul>
+    </nav>
+    <div style="margin-top: 3vh; height: 4vh;" class="row">
+        <div class="col-12">
+            <h2>Students</h2>
+        </div>
+    </div>
+    <div class="row">
+        <div class="col-12">
+            <button onclick="ShowFormAddStudent()" id="buttonAddStudent" class="Buttons">+</button>
+        </div>
+    </div>
+    <div class="row mt-2">
+        <div class="col-12" style="overflow: auto;">
+            <table id="tableId">
+                <tr>
+                    <th><input class="Checkboxes" type="checkbox" name="Checkbox1" disabled></th>
+                    <th>Group</th>
+                    <th>Name</th>
+                    <th>Gender</th>
+                    <th>Birthday</th>
+                    <th>Status</th>
+                    <th>Options</th>
+                </tr>
+            </table>
+        </div>
+    </div>
+    <div class="buttonsForSwitchingTable">
+        <button type="button" class="btn btn-outline-primary btn-lg">&lt;</button>
+        <button type="button" class="btn btn-outline-primary btn-lg">1</button>
+        <button type="button" class="btn btn-outline-primary btn-lg">2</button>
+        <button type="button" class="btn btn-outline-primary btn-lg">3</button>
+        <button type="button" class="btn btn-outline-primary btn-lg">4</button>
+        <button type="button" class="btn btn-outline-primary btn-lg">&gt;</button>
+    </div>
+    <div style="display: none;" id="FormAddStudent">
+        <form onsubmit="addEditStudent(); return false;" method="post" class="p-4 needs-validation was-validated" action="#" novalidate>
+            <div class="d-flex justify-content-between">
+                <h4 class="m-0">Add student</h4>
+                <button type="button" onclick="ShowFormAddStudent()" class="btn btn-danger">x</button>
+            </div>
+            <hr class="my-8">
+            <div class="mb-3">
+                <label for="idSelectGroup" class="form-label">Group</label>
+                <select class="form-select form-control" id="idSelectGroup" name="nameSelectGroup" required>
+                    <option value="" hidden disabled selected>Select Group</option>
+                    <option value="pz21">PZ-21</option>
+                    <option value="pz22">PZ-22</option>
+                    <option value="pz23">PZ-23</option>
+                    <option value="pz24">PZ-24</option>
+                    <option value="pz25">PZ-25</option>
+                    <option value="pz26">PZ-26</option>
+                    <option value="pz27">PZ-27</option>
+                </select>
+                <div class="invalid-feedback">Please select a group.</div>
+            </div>
+            <div class="mb-3">
+                <label for="firstnameId" class="form-label">First name</label>
+                <input type="text" class="form-control" id="firstnameId" placeholder="Type here" name="nameTextFirstName" required>
+                <div class="invalid-feedback">Please provide a first name.</div>
+            </div>
+            <div class="mb-3">
+                <label for="secondnameId" class="form-label">Last name</label>
+                <input type="text" class="form-control" id="secondnameId" placeholder="Type here" name="nameTextLastName" required>
+                <div class="invalid-feedback">Please provide a last name.</div>
+            </div>
+            <div class="mb-3">
+                <label for="idSelectGender" class="form-label">Gender</label>
+                <select class="form-select form-control" id="idSelectGender" name="nameSelectGender" required>
+                    <option value="" hidden disabled selected>Select Gender</option>
+                    <option value="Male">Male</option>
+                    <option value="Female">Female</option>
+                </select>
+                <div class="invalid-feedback">Please select a gender.</div>
+            </div>
+            <div class="mb-3">
+                <label for="nameDateBirthday" class="form-label">Birthday</label>
+                <input type="date" class="form-control" id="nameDateBirthday" name="nameDateBirthday" required>
+                <div class="invalid-feedback">Please provide a birthday.</div>
+            </div>
+            <div class="mb-3">
+                <label for="newLoginId" class="form-label">Login</label>
+                <input type="text" class="form-control" id="newLoginId" placeholder="Type here" name="newLoginName" required>
+                <div class="invalid-feedback">Please provide a login.</div>
+            </div>
+            <div class="mb-3">
+                <label for="newPasswordId" class="form-label">Password</label>
+                <input type="password" class="form-control" id="newPasswordId" placeholder="Type here" name="newPasswordName" required>
+                <div class="invalid-feedback">Please provide a password.</div>
+            </div>
+            <hr class="my-6">
+            <div class="d-grid gap-1">
+                <button id="btnCreateEdit" type="submit" class="btn btn-primary">Create</button>
+                <button type="button" class="btn btn-secondary" onclick="ShowFormAddStudent()">Ok</button>
+            </div>
+        </form>
+    </div>
+    <script>
+        document.addEventListener("DOMContentLoaded", function() {
+            getStudentsFromDB();
+            var userLogin = window.sessionStorage.getItem('userLogin');
+            var userPassword = window.sessionStorage.getItem('userPassword');
+            console.log(`Hello ${userLogin}! You logged in successfully! Your password is ${userPassword}`);
+        });
+    </script>
+</body>
+</html>
